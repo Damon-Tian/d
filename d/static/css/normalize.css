@@ -13,6 +13,7 @@ html {
   -webkit-text-size-adjust: 100%; /* 2 */
 }
 
+
 /* Sections
    ========================================================================== */
 
@@ -20,8 +21,10 @@ html {
  * Remove the margin in all browsers.
  */
 
-body {
-  margin: 0;
+body{
+    font:14px -apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,sans-serif;
+    margin: 0;
+    overflow-x: hidden;
 }
 
 /**
