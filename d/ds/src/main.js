@@ -7,7 +7,14 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 Vue.config.productionTip = false
-
+import {post,success,error,warning,get}  from './axios/axios'
+import {Message} from 'element-ui'
+Vue.prototype.$Message = Message
+Vue.prototype.$post = post;
+Vue.prototype.$success = success;
+Vue.prototype.$error = error;
+Vue.prototype.$warning = warning;
+Vue.prototype.$get = get
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

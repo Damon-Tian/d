@@ -19,20 +19,18 @@ export default {
         headers,music
     },
     mounted() {
-        
-    },
+
+    },  
 }
 </script>
 
 <style scoped>
-body{
-    font:12px -apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,sans-serif
-}
 .content{   
     width: 1198px;
     display: block;
     margin: 0 auto;
-    padding-top: 20px
+    padding-top: 20px;
+    position: relative;
 }
  .fade-enter-active{
     transition: all .7s ease
