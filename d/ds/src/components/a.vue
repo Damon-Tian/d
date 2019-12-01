@@ -47,7 +47,7 @@ export default {
       }
       setTimeout(() => {
           this.lazyLoad();
-      }, 0);
+      }, 100);
       window.addEventListener('scroll',jieliu(200,this.lazyLoad));
   },
   methods: {
@@ -58,9 +58,10 @@ export default {
       lazyLoad(){
           let clientHeight = document.documentElement.clientHeight;
           let scrollTop = document.documentElement.scrollTop;
-          let imgs = document.getElementsByTagName('img');
+        //   let imgs = document.getElementsByTagName('img');
+        let imgs = $('.column img');
           for(let i=0; i<imgs.length;i++){
-              if(imgs[i].getBoundingClientRect().top < clientHeight+scrollTop){
+              if(imgs[i].getBoundingClientRect().top< clientHeight+scrollTop ){
                   let im = imgs[i].getAttribute('data-origin');
                   if(im != null){
                     imgs[i].setAttribute('src',im);
