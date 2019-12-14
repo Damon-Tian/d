@@ -9,16 +9,16 @@
                     <span slot="reference">{{item.name}}</span>
                     <slot >
                         <div v-if="index == 0" class="contents">
-                            <router-link to="/">Photo</router-link>
-                            <router-link to="/b">昨日</router-link>
+                            <router-link to="/">Logs</router-link>
+                            <router-link to="/photo">Photo</router-link>
                         </div>
                         <div v-if="index == 1" class="contents">
-                            <p>明日</p>
-                            <p>今日</p>
+                            <p>```明日```</p>
+                            <p>```今日```</p>
                         </div>
                         <div v-if="index == 2" class="contents">
-                            <p>末日</p>
-                            <p>明日</p>
+                            <p>```末日```</p>
+                            <p>```明日```</p>
                         </div>
                     </slot>
                 </el-popover>
@@ -37,9 +37,9 @@ export default {
     data() {
         return {
             titleData:[
-                {name:'白色',content:'white'},
-                {name:'黑色',content:'black'},
-                {name:'红色',content:'red'}
+                {name:'SomeThing',content:'white'},
+                {name:'Waiting~~',content:'black'},
+                {name:'Loading~~',content:'red'}
             ]
         }
     },
@@ -62,6 +62,9 @@ export default {
         transition: all .3s;
         &:hover{
             background-color: gainsboro
+        }
+        &:active,&:visited,&:link{
+            color: #666
         }
     }
     a{
@@ -121,7 +124,7 @@ export default {
         top: 0;
         height: 9vw;
         min-height: 150px;
-        background-image: url('../../static/img/1.png');
+        background-image: url('https://watermelon-object.oss-cn-shenzhen.aliyuncs.com/image/0d53dd89b02269319127c076d59c297.png');
         background-position: center;
         background-repeat:no-repeat;
         width: 100%;

@@ -8,14 +8,15 @@ export default new Router({
     mode:'history',
   routes: [
     {
-      path: '/',
+        path:'/',
+        name:'b',
+        component:B
+    },
+    {
+      path: '/photo',
       name: 'HelloWorld',
       component: HelloWorld
     },
-    {
-        path:'/b',
-        name:'b',
-        component:B
-    }
+    
   ]
 })

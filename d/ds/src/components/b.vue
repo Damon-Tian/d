@@ -6,22 +6,22 @@
                     <span @click="writing=true">写点什么吧  </span>
                 </div>
                     <div  class="pubu">
-                        <div >
-                            <div  v-for="(item,index) in blogList[0]">
+                        <div ref='first'>
+                            <div  v-for="(item,index) in blogList[0]" >
                                 <blog-block 
                                 :item='item'
                                 ></blog-block>
                             </div>
                         </div>
-                        <div >
-                            <div v-for="(item,index) in blogList[1]">
+                        <div ref='second'>
+                            <div v-for="(item,index) in blogList[1]" >
                                 <blog-block 
                                 :item='item'
                                 ></blog-block>
                             </div>
                         </div>
-                        <div  >
-                            <div v-for="(item,index) in blogList[2]">
+                        <div  ref='third'>
+                            <div v-for="(item,index) in blogList[2]" >
                                 <blog-block 
                                 :item='item'
                                 ></blog-block>
@@ -35,6 +35,7 @@
             <div class="backs">
                 <img :src="item" alt="" v-for="item in fruits">
             </div>
+            <div @click="createConfirm">打开弹框</div>
             <div id="particles-js">
             </div>
             <el-card class="box-card  " >
@@ -97,18 +98,40 @@ export default {
         }
     },
     methods: {
+        createConfirm(){
+            this.$dConfirm(2000).then(res=>{
+                console.log(res)
+            }).catch(
+                res=>{console.log(res)}
+            );
+        },
         getList(){
             let that = this;
+            //如要分页   当前页curPage   每页数量limit  
+            this.blogList = [[],[],[]];
             this.$get('/blog/list_all')
             .then((res)=>{
-                for(let i=0;i<res.data.data.length;i++){
-                    if(i%3 == 0){
-                        that.blogList[0].push(res.data.data[i]);
-                    }else if(i%3 == 1){
-                        that.blogList[1].push(res.data.data[i]);
-                    }else{
-                        that.blogList[2].push(res.data.data[i]);
+                let  i = 0;
+                showFall();
+                function showFall(){
+                    if(i>=res.data.data.length){
+                        return;
                     }
+                    let origin = that.$refs.first.offsetHeight<=that.$refs.second.offsetHeight?that.$refs.first:that.$refs.second;
+                    let final = origin.offsetHeight<=that.$refs.third.offsetHeight?origin:that.$refs.third;
+                    for(let v in that.$refs){
+                        if(that.$refs[v] == final){
+                            if(v == 'first'){
+                                that.blogList[0].push(res.data.data[i]);
+                            }else if(v == 'second'){
+                                that.blogList[1].push(res.data.data[i]);
+                            }else{
+                                that.blogList[2].push(res.data.data[i]);
+                            }
+                        }
+                    }
+                    i++;
+                    that.$nextTick(()=>{showFall()})
                 }
             })
         },
@@ -131,15 +154,6 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
-}
-pre {
-    white-space: pre-wrap;       /* css-3 */
-    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-    white-space: -pre-wrap;      /* Opera 4-6 */
-    white-space: -o-pre-wrap;    /* Opera 7 */
-    word-wrap: break-word;       /* Internet Explorer 5.5+ */
-    word-break:break-all;
-    overflow:hidden;
 }
 .list-enter,.list-leave-to{
     opacity: 0;
@@ -209,6 +223,7 @@ pre {
     flex-direction: row;
     width: 100%;
     justify-content: space-between;
+    align-items: flex-start;
     &>div{
         width: 32%;
         display: flex;

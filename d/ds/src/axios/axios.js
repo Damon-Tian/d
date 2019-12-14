@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {Message} from 'element-ui'
-export var url = 'http://wb.awatermelon.cn/l';
+export var url = 'http://tj.awatermelon.cn/l';
 // var url = '/api/l';
 axios.interceptors.request.use(config=>{
     return config;

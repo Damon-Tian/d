@@ -2,13 +2,13 @@
   <div>
         <el-card class="box-card">
             <div class="pubu">
-                <div class="column">
+                <div class="column" ref="first">
                     <img @click="bigImg(item)" :data-origin="'./static/img/'+item+'.jpg'" src="../../static/img/loading.gif" alt= "" v-for="(item,index) in data1" :key="index">
                 </div>
-                <div class="column">
+                <div class="column" ref="second">
                     <img @click="bigImg(item)" :data-origin="'./static/img/'+item+'.jpg'" src="../../static/img/loading.gif" alt= "" v-for="(item,index) in data2" :key="index">
                 </div>
-                <div class="column">
+                <div class="column" ref="third">
                     <img @click="bigImg(item)" :data-origin="'./static/img/'+item+'.jpg'" src="../../static/img/loading.gif" alt= "" v-for="(item,index) in data3" :key="index">
                 </div>
             </div>
@@ -35,16 +35,39 @@ export default {
     }
   },
   mounted() {
-      for(let i=0;i<11;i++){
-          let x = i%3;
-          if(x==0){
-              this.data1.push(i+1);
-          }else if(x==1){
-              this.data2.push(i+1)
-          }else if(x==2){
-              this.data3.push(i+1)
-          }
-      }
+        let  i = 1,length = 11,that=this;
+        showFall();
+        function showFall(){
+            if(i>=length){
+                return;
+            }
+            let origin = that.$refs.first.offsetHeight<=that.$refs.second.offsetHeight?that.$refs.first:that.$refs.second;
+            let final = origin.offsetHeight<=that.$refs.third.offsetHeight?origin:that.$refs.third;
+            for(let v in that.$refs){
+                if(that.$refs[v] == final){
+                    if(v == 'first'){
+                        that.data1.push(i);
+                    }else if(v == 'second'){
+                        that.data2.push(i);
+                    }else{
+                        that.data3.push(i);
+                    }
+                }
+            }
+            i++;
+            that.$nextTick(()=>{showFall()})
+        }
+
+    //   for(let i=0;i<11;i++){
+    //       let x = i%3;
+    //       if(x==0){
+    //           this.data1.push(i+1);
+    //       }else if(x==1){
+    //           this.data2.push(i+1)
+    //       }else if(x==2){
+    //           this.data3.push(i+1)
+    //       }
+    //   }
       setTimeout(() => {
           this.lazyLoad();
       }, 100);
@@ -80,6 +103,7 @@ img{
 .pubu{
     display: flex;
     flex-direction: row;
+    align-items: flex-start;
     justify-content: space-between;
     .column{
         flex-basis: 32%;

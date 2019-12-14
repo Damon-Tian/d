@@ -53,7 +53,7 @@ export default {
             nowTime:'',
             totalTime:'',
             totalPro:'',        
-            pause:false,
+            pause:true,
             repeat:false,
             list:[
                 {name:'Lay It Down Slow',singer:'毛骗',src:require('../../static/music/Lay It Down Slow.mp3'),img:require('../../static/img/LayItDownSlow.jpg')},
@@ -78,7 +78,14 @@ export default {
                 that.pause = true;
             }
             this.dMusic.src=this.list[0].src;
-            that.changeSong(0);
+            this.name = this.list[0].name;
+            this.singer = this.list[0].singer;
+            this.indexSong =0;
+            this.img = this.list[0].img;
+            this.pause = true;
+            $('#box .backs').css("background-image","url("+this.list[0].img+")");
+            $('#list .backs').css("background-image","url("+this.list[0].img+")");
+            // that.changeSong(0);
         }, 0);
     },
     methods: {
@@ -131,8 +138,8 @@ export default {
             this.name = this.list[index].name;
             this.singer = this.list[index].singer;
             this.indexSong =index;
-            this.dMusic.play();
             this.img = this.list[index].img;
+            this.dMusic.play();
             this.pause = false;
             $('#box .backs').css("background-image","url("+this.list[index].img+")");
             $('#list .backs').css("background-image","url("+this.list[index].img+")");
